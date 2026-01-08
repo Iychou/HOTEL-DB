@@ -1,29 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1
--- Généré le : mar. 25 nov. 2025 à 10:59
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
 -- Base de données : `hotel_db`
---
-
--- --------------------------------------------------------
-
---
+CREATE PLUGGABLE DATABASE hotel_db 
+  admin user hotel_admin identified by oracle 
+  data_file 'opt/oradata/ORCLE/HOTEL_DB'
+  DATAA_FILE_TRANSFER
 -- Structure de la table `chambres`
 --
 
@@ -40,18 +19,12 @@ CREATE TABLE `chambres` (
 --
 
 INSERT INTO `chambres` (`chambre_id`, `hotel_id`, `numero`, `type`, `prix`) VALUES
-(1, 1, 101, 'Standard', 500.00),
-(2, 1, 102, 'Suite', 800.00),
-(3, 2, 201, 'Standard', 600.00),
-(4, 1, 101, 'Standard', 500.00),
-(5, 1, 102, 'Suite', 800.00),
-(6, 2, 201, 'Standard', 600.00),
-(7, 1, 101, 'Standard', 500.00),
-(8, 1, 102, 'Suite', 800.00),
-(9, 2, 201, 'Standard', 600.00),
+(1, 1, 105, 'lux', 900.00),
+(2, 1, 104, 'Suite', 800.00),
+(8, 1, 103, 'Suite', 800.00),
+(9, 2, 201, 'lux', 600.00),
 (10, 1, 101, 'Standard', 500.00),
 (11, 1, 102, 'Suite', 800.00),
-(12, 2, 201, 'Standard', 600.00);
 
 -- --------------------------------------------------------
 
@@ -73,16 +46,8 @@ CREATE TABLE `clients` (
 
 INSERT INTO `clients` (`client_id`, `nom`, `tel`, `ville`, `pays`) VALUES
 (1, 'Ali Hassan', '06000000', 'Paris', 'France'),
-(2, 'Sara Ben', '06123456', 'Rabat', 'Maroc'),
-(3, 'John Doe', '05000000', 'Madrid', 'Espagne'),
-(4, 'Ali Hassan', '06000000', 'Paris', 'France'),
-(5, 'Sara Ben', '06123456', 'Rabat', 'Maroc'),
-(6, 'John Doe', '05000000', 'Madrid', 'Espagne'),
-(7, 'Ali Hassan', '06000000', 'Paris', 'France'),
-(8, 'Sara Ben', '06123456', 'Rabat', 'Maroc'),
-(9, 'John Doe', '05000000', 'Madrid', 'Espagne');
+(1, 'Jean paul', '06044000', 'paris', 'France'),
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `hotels`
@@ -253,7 +218,3 @@ ALTER TABLE `reservations`
   ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`hotel_id`),
   ADD CONSTRAINT `reservations_ibfk_3` FOREIGN KEY (`chambre_id`) REFERENCES `chambres` (`chambre_id`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
