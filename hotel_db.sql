@@ -46,6 +46,7 @@ CREATE TABLE reservation (
     reservation_id NUMBER PRIMARY KEY,
     client_id NUMBER,
     chambre_id NUMBER,
+    status VARCHAR2(30),
     date_debut DATE,
     date_fin DATE,
     CONSTRAINT fk_client FOREIGN KEY (client_id) REFERENCES clients(client_id),
