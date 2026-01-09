@@ -1,14 +1,16 @@
 -- Base de données : `hotel_db`
 CREATE PLUGGABLE DATABASE hotel_db 
   admin user hotel_admin identified by oracle 
-  data_file 'opt/oradata/ORCLE/HOTEL_DB'
-  DATAA_FILE_TRANSFER
+  role = (dba)
+  data_file '/opt/oracle/oradata/ORCLCDB/HOTEL_DB'
+  file_name_convert ('/opt/oracle/oradata/ORCLCDB/pdbseed',
+                    '/opt/oracle/oradata/ORCLCDB/HOTEL_DB')
+  
 -- Structure de la table `chambres`
 --
 
 CREATE TABLE `chambres` (
   `chambre_id` int(11) NOT NULL,
-  `hotel_id` int(11) DEFAULT NULL,
   `numero` int(11) NOT NULL,
   `type` varchar(50) DEFAULT NULL,
   `prix` decimal(10,2) DEFAULT NULL
@@ -36,8 +38,8 @@ CREATE TABLE `clients` (
   `client_id` int(11) NOT NULL,
   `nom` varchar(100) NOT NULL,
   `tel` varchar(30) DEFAULT NULL,
-  `ville` varchar(100) DEFAULT NULL,
-  `pays` varchar(100) DEFAULT NULL
+  `cin` varchar(10) unique,
+   natinalite varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -79,7 +81,6 @@ INSERT INTO `paiements` (`paiement_id`, `reservation_id`, `montant`, `date_paiem
 CREATE TABLE `reservations` (
   `reservation_id` int(11) NOT NULL,
   `client_id` int(11) DEFAULT NULL,
-  `hotel_id` int(11) DEFAULT NULL,
   `chambre_id` int(11) DEFAULT NULL,
   `date_debut` date DEFAULT NULL,
   `date_fin` date DEFAULT NULL
