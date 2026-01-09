@@ -14,19 +14,19 @@ CREATE TABLE `chambres` (
   `numero` int(11) NOT NULL,
   `type` varchar(50) DEFAULT NULL,
   `prix` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+);
 
 --
 -- Déchargement des données de la table `chambres`
 --
 
 INSERT INTO `chambres` (`chambre_id`, `hotel_id`, `numero`, `type`, `prix`) VALUES
-(1, 1, 105, 'lux', 900.00),
-(2, 1, 104, 'Suite', 800.00),
-(8, 1, 103, 'Suite', 800.00),
-(9, 2, 201, 'lux', 600.00),
-(10, 1, 101, 'Standard', 500.00),
-(11, 1, 102, 'Suite', 800.00),
+(1, 105, 'lux', 900.00),
+(2, 104, 'Suite', 800.00),
+(3, 103, 'Suite', 800.00),
+(4, 201, 'lux', 600.00),
+(5, 101, 'Standard', 500.00),
+(6, 102, 'Suite', 800.00),
 
 -- --------------------------------------------------------
 
@@ -35,46 +35,25 @@ INSERT INTO `chambres` (`chambre_id`, `hotel_id`, `numero`, `type`, `prix`) VALU
 --
 
 CREATE TABLE `clients` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(100) NOT NULL,
+  `client_id` int(11) NOT NULL,
+   chambre_id int(11) NOT NULL
+  `full_name` varchar(100) NOT NULL,
   `tel` varchar(30) DEFAULT NULL,
-  `cin` varchar(10) unique,
-   natinalite varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `cin` varchar(10) unique
+);
 
 --
 -- Déchargement des données de la table `clients`
 --
 
-INSERT INTO `clients` (`id`, `nom`, `tel`, `ville`, `pays`) VALUES
-(1, 'Ali Hassan', '06000000', 'Paris', 'France'),
-(1, 'Jean paul', '06044000', 'paris', 'France'),
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `paiements`
---
-
-CREATE TABLE `paiements` (
-  `paiement_id` int(11) NOT NULL,
-  `reservation_id` int(11) DEFAULT NULL,
-  `montant` decimal(10,2) DEFAULT NULL,
-  `date_paiement` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `paiements`
---
-
-INSERT INTO `paiements` (`paiement_id`, `reservation_id`, `montant`, `date_paiement`) VALUES
-(7, 1, 2000.00, '2025-02-01'),
-(8, 2, 1600.00, '2025-03-10');
+INSERT INTO `clients` (`client_id`, `chambre_id`, `full_name`, `tel`, cin) VALUES
+(1, 2, 'Ali Hassan', '06000000', 'T333344'),
+(2, 1,  'Jean paul', '06044000', 'T334455'),
+(3, 4,  'Amine soussi', '06044090', 'T336665'),
+(4, 5,  'Amina Annabi', '06098090', 'T333333'),
+(5, 3,  'alae Amor', '06554090', 'T336222'),
 
 -- --------------------------------------------------------
-
---
 -- Structure de la table `reservations`
 --
 
@@ -84,34 +63,40 @@ CREATE TABLE `reservations` (
   `chambre_id` int(11) DEFAULT NULL,
   `date_debut` date DEFAULT NULL,
   `date_fin` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;
 
 --
 -- Déchargement des données de la table `reservations`
 --
 
-INSERT INTO `reservations` (`reservation_id`, `client_id`, `hotel_id`, `chambre_id`, `date_debut`, `date_fin`) VALUES
-(1, 1, 1, 1, '2025-02-01', '2025-02-05'),
-(2, 2, 1, 2, '2025-03-10', '2025-03-12'),
-(15, 1, 7, 1, '2025-03-04', '2025-04-12'),
-(16, 2, 5, 2, '2025-04-09', '2025-05-11');
-
+INSERT INTO `reservations` (`reservation_id`, `client_id`, `chambre_id`, `date_debut`, `date_fin`) VALUES
+(1, 3, 1, '2025-02-01', '2025-02-05'),
+(2, 2, 2, '2025-03-10', '2025-03-12'),
+(3, 1, 3, '2025-03-04', '2025-04-12'),
+(4, 4, 5, '2025-04-09', '2025-05-11');
 --
 -- Structure de la table `paiements`
 --
-CREATE TABLE 'Employés' (
-  'id' int(11) NOT NULL,
-  'nom' varchar(20) NOT NULL,
-  'Poste' varchar(30) NOT NULL,
-  'Type_contrat' varchar(10) NOT NULL,
-  'tele' int(30) DEFAULT NULL
+
+CREATE TABLE `paiements` (
+  `paiement_id` int(11) NOT NULL,
+  `reservation_id` int(11) DEFAULT NULL,
+  `montant` decimal(10,2) DEFAULT NULL,
+  `date_paiement` date DEFAULT NULL
 );
-  Déchargement des données de la table 'Employés'
-INSERT INTO 'Employés' ('id, 'nom', 'Poste', 'Type_contrat', 'tele') values 
-  ('E001', 'El Idrissi Ahmed', 'Cuisinier', 'CDD', '0612345678'),
-  ('E002', 'El Amrani Youssef', 'Réceptionniste', 'CDI', '0612397501'),
-  ('E003', 'Benali Khadija', 'Serveuse', 'CDI', '0710798501');
-  
+
+--
+-- Déchargement des données de la table `paiements`
+--
+
+INSERT INTO `paiements` (`paiement_id`, `reservation_id`, `montant`, `date_paiement`) VALUES
+(1, 3, 2000.00, '2025-02-01'),
+(2, 2, 1600.00, '2025-03-10');
+
+-- --------------------------------------------------------
+
+
+--
 -- Index pour les tables déchargées
 --
 
@@ -151,7 +136,6 @@ ALTER TABLE `reservations`
   ADD KEY `chambre_id` (`chambre_id`);
 
 --
-    ALTER
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
