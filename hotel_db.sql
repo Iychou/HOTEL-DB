@@ -35,8 +35,8 @@ INSERT INTO `chambres` (`chambre_id`, `hotel_id`, `numero`, `type`, `prix`) VALU
 --
 
 CREATE TABLE `clients` (
-  `client_id` int(11) NOT NULL,
-  `nom` varchar(100) NOT NULL,
+  `id` int(11) NOT NULL,
+  `nom_` varchar(100) NOT NULL,
   `tel` varchar(30) DEFAULT NULL,
   `cin` varchar(10) unique,
    natinalite varchar(100) DEFAULT NULL
@@ -46,7 +46,7 @@ CREATE TABLE `clients` (
 -- Déchargement des données de la table `clients`
 --
 
-INSERT INTO `clients` (`client_id`, `nom`, `tel`, `ville`, `pays`) VALUES
+INSERT INTO `clients` (`id`, `nom`, `tel`, `ville`, `pays`) VALUES
 (1, 'Ali Hassan', '06000000', 'Paris', 'France'),
 (1, 'Jean paul', '06044000', 'paris', 'France'),
 
@@ -97,6 +97,21 @@ INSERT INTO `reservations` (`reservation_id`, `client_id`, `hotel_id`, `chambre_
 (16, 2, 5, 2, '2025-04-09', '2025-05-11');
 
 --
+-- Structure de la table `paiements`
+--
+CREATE TABLE 'Employés' (
+  'id' int(11) NOT NULL,
+  'nom' varchar(20) NOT NULL,
+  'Poste' varchar(30) NOT NULL,
+  'Type_contrat' varchar(10) NOT NULL,
+  'tele' int(30) DEFAULT NULL
+);
+  Déchargement des données de la table 'Employés'
+INSERT INTO 'Employés' ('id, 'nom', 'Poste', 'Type_contrat', 'tele') values 
+  ('E001', 'El Idrissi Ahmed', 'Cuisinier', 'CDD', '0612345678'),
+  ('E002', 'El Amrani Youssef', 'Réceptionniste', 'CDI', '0612397501'),
+  ('E003', 'Benali Khadija', 'Serveuse', 'CDI', '0710798501');
+  
 -- Index pour les tables déchargées
 --
 
@@ -136,6 +151,7 @@ ALTER TABLE `reservations`
   ADD KEY `chambre_id` (`chambre_id`);
 
 --
+    ALTER
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
