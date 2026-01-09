@@ -36,7 +36,7 @@ INSERT INTO `chambres` (`chambre_id`, `hotel_id`, `numero`, `type`, `prix`) VALU
 
 CREATE TABLE `clients` (
   `id` int(11) NOT NULL,
-  `nom_` varchar(100) NOT NULL,
+  `nom` varchar(100) NOT NULL,
   `tel` varchar(30) DEFAULT NULL,
   `cin` varchar(10) unique,
    natinalite varchar(100) DEFAULT NULL
