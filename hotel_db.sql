@@ -49,32 +49,6 @@ INSERT INTO `clients` (`client_id`, `nom`, `tel`, `ville`, `pays`) VALUES
 (1, 'Jean paul', '06044000', 'paris', 'France'),
 
 
---
--- Structure de la table `hotels`
---
-
-CREATE TABLE `hotels` (
-  `hotel_id` int(11) NOT NULL,
-  `nom` varchar(100) NOT NULL,
-  `ville` varchar(100) DEFAULT NULL,
-  `pays` varchar(100) DEFAULT NULL,
-  `tel` varchar(30) DEFAULT NULL,
-  `categorie` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `hotels`
---
-
-INSERT INTO `hotels` (`hotel_id`, `nom`, `ville`, `pays`, `tel`, `categorie`) VALUES
-(1, 'Hotel Atlas', 'Rabat', 'Maroc', '05370000', 4),
-(2, 'Hotel Paris Center', 'Paris', 'France', '01556677', 5),
-(5, 'Hotel Atlas', 'Rabat', 'Maroc', '05370000', 4),
-(7, 'Hotel Paris Center', 'Paris', 'France', '01556677', 5),
-(8, 'hotel Nice', 'Nice', 'France', '12348765', 5),
-(9, 'hotel hilton', 'Marrakech', 'Maroc', '4321569', 4),
-(10, 'hotel hilton', 'Casablanca', 'Maroc', '23541234', 5);
-
 -- --------------------------------------------------------
 
 --
