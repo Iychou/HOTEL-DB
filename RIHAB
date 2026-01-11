@@ -1,0 +1,106 @@
+-- l’espace disque total alloué pour chaque tablespace
+SELECT
+  tablespace_name,
+  ROUND(SUM(bytes)/1024/1024, 2) AS total_mb
+FROM dba_data_files
+GROUP BY tablespace_name;
+
+-----------------------------------------------------------------------------------------------
+-- Espace libre par tablespace
+SELECT
+  tablespace_name,
+  ROUND(SUM(bytes)/1024/1024, 2) AS free_mb
+FROM dba_free_space
+GROUP BY tablespace_name;
+
+------------------------------------------------------------------------------------------------------
+-- Espace utilisé par tablespace 
+SELECT
+  df.tablespace_name,
+  ROUND((SUM(df.bytes)-SUM(fs.bytes))/1024/1024, 2) AS used_mb
+FROM dba_data_files df, dba_free_space fs
+WHERE df.tablespace_name = fs.tablespace_name
+GROUP BY df.tablespace_name;
+
+-----------------------------------------------------------------------
+--connaître la taille occupée sur le disque par une table
+SELECT
+  segment_name,
+  ROUND(bytes/1024/1024,2) AS size_mb
+FROM user_segments
+WHERE segment_name = 'FACTURATION';
+
+SELECT
+  segment_name,
+  ROUND(bytes/1024/1024,2) AS size_mb
+FROM user_segments
+WHERE segment_name = 'CHAMBRE';
+
+SELECT
+  segment_name,
+  ROUND(bytes/1024/1024,2) AS size_mb
+FROM user_segments
+WHERE segment_name = 'RESERVATION';
+
+SELECT
+  segment_name,
+  ROUND(bytes/1024/1024,2) AS size_mb
+FROM user_segments
+WHERE segment_name = 'CLIENT';
+
+SELECT
+  segment_name,
+  ROUND(bytes/1024/1024,2) AS size_mb
+FROM user_segments
+WHERE segment_name = 'EMPLOYEE';
+
+----------------------------------------------------------------------------------
+-- Alerte pour les tablespaces 
+BEGIN
+  DBMS_SERVER_ALERT.SET_THRESHOLD(
+    metrics_id              => DBMS_SERVER_ALERT.TABLESPACE_PCT_FULL,
+    warning_operator        => DBMS_SERVER_ALERT.OPERATOR_GE,
+    warning_value           => 55,
+    critical_operator       => DBMS_SERVER_ALERT.OPERATOR_GE,
+    critical_value          => 70,
+    observation_period      => 5,
+    consecutive_occurrences => 1,
+    object_type             => DBMS_SERVER_ALERT.OBJECT_TYPE_TABLESPACE,
+    object_name             => 'FACTURATION',
+    instance_name           => 'ORCLCDB'
+  );
+END;
+/
+
+BEGIN
+  DBMS_SERVER_ALERT.SET_THRESHOLD(
+    metrics_id              => DBMS_SERVER_ALERT.TABLESPACE_PCT_FULL,
+    warning_operator        => DBMS_SERVER_ALERT.OPERATOR_GE,
+    warning_value           => 55,
+    critical_operator       => DBMS_SERVER_ALERT.OPERATOR_GE,
+    critical_value          => 70,
+    observation_period      => 5,
+    consecutive_occurrences => 1,
+    object_type             => DBMS_SERVER_ALERT.OBJECT_TYPE_TABLESPACE,
+    object_name             => 'RESERVATION',
+    instance_name           => 'ORCLCDB'
+  );
+END;
+/
+
+BEGIN
+  DBMS_SERVER_ALERT.SET_THRESHOLD(
+    metrics_id              => DBMS_SERVER_ALERT.TABLESPACE_PCT_FULL,
+    warning_operator        => DBMS_SERVER_ALERT.OPERATOR_GE,
+    warning_value           => 55,
+    critical_operator       => DBMS_SERVER_ALERT.OPERATOR_GE,
+    critical_value          => 70,
+    observation_period      => 5,
+    consecutive_occurrences => 1,
+    object_type             => DBMS_SERVER_ALERT.OBJECT_TYPE_TABLESPACE,
+    object_name             => 'USERS',
+    instance_name           => 'ORCLCDB'
+  );
+END;
+/
+
