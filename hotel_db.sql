@@ -36,7 +36,8 @@ CREATE TABLE chambre (
     chambre_id NUMBER PRIMARY KEY,
     num_chambre VARCHAR2(10),
     type VARCHAR2(20),
-    prix NUMBER
+    prix NUMBER,
+    status VARCHAR2(30)
 ) TABLESPACE reservation;
 CREATE INDEX idx_chambre_num ON chambre(num_chambre);
 CREATE INDEX idx_chambre_type ON chambre(type);
