@@ -7,11 +7,11 @@ ARCHIVE LOG LIST;
  ALTER PLUGGABLE DATABASE ALL OPEN
 --bash
 rman target=/
--- RMAN
-backup pluggable database hotel_db plus archivelog;
-BACKUP ARCHIVELOG ALL;
+-- RMAN   sauvegarde complet  avant la période critique
+BACKUP INCREMENTAL LEVEL 0 pluggable DATABASE hotel_db plus archivelog;
 BACKUP CURRENT CONTROLFILE;
 BACKUP SPFILE;
-BACKUP INCREMENTAL LEVEL 0 pluggable DATABASE hotel_db;
-BACKUP INCREMENTAL LEVEL 1 pluggable DATABASE hotel_db;
+--après sauvegarde complet 
+--sauvegarde chaque jour
+BACKUP INCREMENTAL LEVEL 1 pluggable DATABASE hotel_db plus archivelog;
 RESTORE PLUGGABLE DATABASE hotel_db VALIDATE;
