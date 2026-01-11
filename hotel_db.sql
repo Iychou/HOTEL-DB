@@ -19,7 +19,7 @@ CREATE INDEX idx_person_nom_complet ON person(nom_complet);
 --client table
 CREATE TABLE client (
     client_id NUMBER PRIMARY KEY,
-    point_filelite NUMBER,
+    point_fidelite NUMBER,
     FOREIGN KEY (client_id) REFERENCES person(person_id)
 ) TABLESPACE users;
 --employee table
