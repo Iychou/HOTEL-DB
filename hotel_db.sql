@@ -6,32 +6,32 @@ ALTER SESSION SET CONTAINER=hotel_db;
 --connecter à l'utilisateur
 ------------------------------------
 -------------------------------------
---person table 
-CREATE TABLE person (
+--table de personne
+CREATE TABLE personne (
     person_id NUMBER PRIMARY KEY,
     nom_complet VARCHAR2(100),
     cin VARCHARé(10)
     mail VARCHAR2(100),
     tel VARCHAR2(20) 
-) TABLESPACE users;
+) TABLESPACE personne;
 CREATE INDEX idx_person_cin ON person(cin); 
 CREATE INDEX idx_person_nom_complet ON person(nom_complet);
---client table
+--table de client
 CREATE TABLE client (
     client_id NUMBER PRIMARY KEY,
     point_fidelite NUMBER,
     FOREIGN KEY (client_id) REFERENCES person(person_id)
-) TABLESPACE users;
---employee table
+) TABLESPACE personne;
+--table d'employee
 CREATE TABLE Employee (
     employee_id     NUMBER PRIMARY KEY,
     salaire       NUMBER(10,2) NOT NULL,
     poste         VARCHAR2(50) NOT NULL,
     departement   VARCHAR2(50)
     FOREIGN KEY (employee_id) REFERENCES person(person_id)
-)TABLESPACE users;
+)TABLESPACE personne;
 
---chambre table 
+--table de chambre
 CREATE TABLE chambre (
     chambre_id NUMBER PRIMARY KEY,
     num_chambre VARCHAR2(10),
@@ -42,7 +42,7 @@ CREATE TABLE chambre (
 CREATE INDEX idx_chambre_num ON chambre(num_chambre);
 CREATE INDEX idx_chambre_type ON chambre(type);
 
---reservation table
+--table de reservation
 CREATE TABLE reservation (
     reservation_id NUMBER PRIMARY KEY,
     client_id NUMBER,
@@ -56,7 +56,7 @@ CREATE TABLE reservation (
 CREATE INDEX idx_reservation_client ON Reservation(client_id);   
 CREATE INDEX idx_reservation_chambre ON Reservation(chambre_id);
 
---facturation table 
+--table de facturation
 CREATE TABLE facturation (
     facture_id NUMBER PRIMARY KEY,
     reservation_id NUMBER,
@@ -65,9 +65,7 @@ CREATE TABLE facturation (
     FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id)
 ) TABLESPACE facturation;
 CREATE INDEX idx_facturation_reservation ON Facturation(reservation_id);
---If you do NOT index foreign keys, Oracle may:
---Lock child tables during DELETE/UPDATE
---Cause serious performance issues
+
 
 
 
